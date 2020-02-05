@@ -10,4 +10,24 @@
  *
  */
 
+#include <iostream>
+#include <string>
+using namespace std;
 
+int main()
+{
+ string name, relative;
+ cout << "Enter your name:\n";
+ cin >> name;
+ cout << "Enter a relative:\n";
+ cin >> relative;
+
+ cout << "Hello. My name is " + name + ". You killed my " + relative;
+ cout << ". Prepare to die.\n";
+
+ return 0;
+}
+
+/* Regarding sources, I had previous knowledge of
+ * C++ from a previous professor.
+ */
