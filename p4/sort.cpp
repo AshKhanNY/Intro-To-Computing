@@ -6,11 +6,11 @@
  * and the book, please list everything.  And remember- citing a source does
  * NOT mean it is okay to COPY THAT SOURCE.  What you submit here **MUST BE
  * YOUR OWN WORK**.
- * References:
+ * References: Dawen, Azwad, Kyle, cplusplus.com (for swap function)
  *
  *
  * Finally, please indicate approximately how many hours you spent on this:
- * #hours: 
+ * #hours: 8
  */
 
 #include <iostream>
@@ -28,6 +28,12 @@ struct node {
 	node* next;
 	node(string s="", node* p=NULL, node* n=NULL) : data(s),prev(p),next(n) {}
 };
+
+void sort(node*& x);
+void forwPrint(node* x);
+void revPrint(node* x);
+void input(node*& x, string y);
+bool uni(node* x, string y);
 
 int main(int argc, char *argv[]) {
 	/* define long options */
@@ -52,9 +58,86 @@ int main(int argc, char *argv[]) {
 				return 1;
 		}
 	}
-	/* NOTE: at this point, variables 'reverse' and 'unique' have been set
-	 * according to the command line.  */
-	/* TODO: finish writing this.  Maybe use while(getline(cin,line)) or
-	 * similar to read all the lines from stdin. */
+
+	node* curr = NULL;
+	node* start = NULL;
+	node* end = NULL;
+	string line;
+
+	//Very first node
+	if (getline(cin,line)){
+		curr = new node;
+		curr->data = line;
+		start = curr; //Marker for beginning list
+	}
+
+	//Following nodes
+	while(getline(cin,line)){
+		if (line == "end") break; //terminator (for testing only)
+		if (unique == 1){
+			if (uni(start, line) == true) //determines if current word is unique
+				input(curr, line);
+		}
+		else{
+			input(curr, line);
+		}
+	}
+	end = curr; //Marker for end of list
+
+	//checks if elligible for sorting
+	sort(start);
+
+	//checks what order you want to print in
+	if (reverse == 1)
+		revPrint(end);
+	else
+		forwPrint(start);
+
 	return 0;
 }
+
+void sort(node*& x){ //sorts nodes by values, x = start
+	for (node* i = x; i != NULL; i = i->next){
+		for (node* k = x; k != NULL; k = k->next){
+			if (k->data > i->data)
+				swap(i->data, k->data);
+		}
+	}
+}
+
+void input(node*& x, string y){ //sets up new node, updates
+	x->next = new node; //sets up new node
+	x->next->prev = x;
+	x = x->next;
+	x->data = y;
+}
+
+bool uni(node* x, string y){ //checks if line is unique
+	for (node* i = x; i != NULL; i = i->next){
+		if (y == (*i).data)
+			return false; //meaning it is not unique
+	}
+	return true; //meaning it is unique
+}
+
+void forwPrint(node* x){ //Forward printer, x = start
+	for (node* i = x; i != NULL; i = i->next){
+		cout << ((*i).data) << endl;
+	}
+}
+
+void revPrint(node* x){ //Reverse printer, x = end
+	for (node* i = x; i != NULL; i = i->prev){
+		cout << ((*i).data) << endl;
+	}
+}
+
+
+
+
+
+
+
+
+
+
