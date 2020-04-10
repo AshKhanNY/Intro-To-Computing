@@ -11,11 +11,27 @@
  */
 
 #include <iostream>
+#include <cmath>
 using std::cin;
 using std::cout;
 using std::endl;
 
 int main()
 {
-	return 0;
+ unsigned long n, i; //able to store large numbers
+ while (cin >> n){
+  int prime = 1;
+
+  if (((n % 2) == 0) && n != 2 || (n == 1))
+   prime = 0;
+
+  for (i = 3; i < sqrt(n) + 1; i += 2){
+   if ((n % i) == 0)
+    prime = 0;
+  }
+
+  cout << prime << endl;
+ }
+
+ return 0;
 }
